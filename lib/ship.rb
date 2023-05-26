@@ -14,6 +14,7 @@ class Ship
       false
     end
   end
+  
   def health
     @life_points = @length - @hit_counter
   end
