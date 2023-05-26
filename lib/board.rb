@@ -18,9 +18,25 @@ def cells
 end
 
 def valid_coordinate?(cell)
-
   @game_board.has_key?(cell)
 end
 
+def valid_placement?(ship, cells)
+  if ship.length == cells.length
+    true
+  else
+    false
+  end
 end
 
+
+end
+
+range = ["A1", "A2", "A3"]
+arr = []
+output = range.each do |item|
+  item.split << item
+  
+end
+
+p output
