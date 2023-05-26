@@ -21,11 +21,7 @@ class Cell
   end
 
   def fired_upon?
-    if @damaged == true
-      true
-    else
-      false
-    end
+    @fired_upon
   end
 
   def fire_upon
@@ -39,11 +35,11 @@ class Cell
       "S"
     elsif @fired_upon == false
       "."
-    elsif @fired_upon == true && @ship == nil
+    elsif @fired_upon == true && empty?
       "M"
     elsif @ship.sunk? == true
       "X"
-    else @fired_upon == true && @ship != nil
+    else @fired_upon == true && !empty?
       "H"
     end
   end

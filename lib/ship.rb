@@ -1,5 +1,5 @@
 class Ship
-  attr_reader :name, :length, :health, :hit_counter
+  attr_reader :name, :length, :hit_counter
 
   def initialize(name, length)
     @name = name
@@ -8,15 +8,11 @@ class Ship
   end
 
   def sunk?
-    if @life_points == 0
-      true
-    else
-      false
-    end
+    @hit_counter >= @length ? true : false
   end
   
   def health
-    @life_points = @length - @hit_counter
+    @length - @hit_counter
   end
 
   def hit

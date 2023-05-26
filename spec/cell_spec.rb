@@ -45,7 +45,7 @@ RSpec.describe Cell do
       expect(cell_2.render).to eq("H")
       cell_2.fire_upon
       cell_2.fire_upon
-      #expect(cell_2.render).to eq("X")
+      expect(cell_2.render).to eq("X")
     end
     it 'can show an optional text' do
       cell_2 = Cell.new("C3")
