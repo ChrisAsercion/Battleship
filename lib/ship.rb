@@ -22,3 +22,7 @@ class Ship
     @hit_counter += 1
   end
 end
+
+#every time the hit action is called, the hit counter goes up
+#this in turn effects the health method by lowering it incrementally
+#the ship is initiated with no hits.

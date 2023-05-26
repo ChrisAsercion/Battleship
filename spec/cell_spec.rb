@@ -9,7 +9,7 @@ RSpec.describe Cell do
       expect(cell.ship).to eq(nil)
       expect(cell.empty?).to eq(true)
     end
-    
+
     it 'can place a ship' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
@@ -19,3 +19,7 @@ RSpec.describe Cell do
     end
   end
 end
+
+#The cell will take a coordinate string
+#@ship isn't defined until place_ship is called so it can return nil
+#once place_ship is called, @ship is now the battleship piece that is assigned to it
