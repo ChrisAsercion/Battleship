@@ -62,15 +62,20 @@ attr_reader :cell_group
     end
   end
   def place(ship, cells)
-    cells.each do |cell|
-      old_cell = @cell_group[cell]
-      old_cell.place_ship(ship) 
+    if !is_overlapping?(cells)
+      cells.each do |cell|
+        old_cell = @cell_group[cell]
+        old_cell.place_ship(ship) 
+      end
+    else
+      false
     end
+    
   end
 
-  def is_overlapping?(ship)
-    ship.all? do |boat|
-      boat.empty?
+  def is_overlapping?(cells)
+    cells.all? do |cell|
+      @cell_group[cell].empty?
     end
   end
 end
