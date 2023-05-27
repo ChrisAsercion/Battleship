@@ -61,6 +61,7 @@ attr_reader :cell_group
       false
     end
   end
+
   def place(ship, cells)
     if is_overlapping?(cells)
       cells.each do |cell|
@@ -76,6 +77,22 @@ attr_reader :cell_group
   def is_overlapping?(cells)
     cells.all? do |cell|
       @cell_group[cell].empty?
+    end
+  end
+
+  def render(show = false)
+    if show == false
+      "  1 2 3 4 \n" +
+      "A #{@cell_group["A1"].render} #{@cell_group["A2"].render} #{@cell_group["A3"].render} #{@cell_group["A4"].render} \n" +
+      "B #{@cell_group["B1"].render} #{@cell_group["B2"].render} #{@cell_group["B3"].render} #{@cell_group["B4"].render} \n" +
+      "C #{@cell_group["C1"].render} #{@cell_group["C2"].render} #{@cell_group["C3"].render} #{@cell_group["C4"].render} \n" +
+      "D #{@cell_group["D1"].render} #{@cell_group["D2"].render} #{@cell_group["D3"].render} #{@cell_group["D4"].render} \n"
+    else
+      "  1 2 3 4 \n" +
+    "A #{@cell_group["A1"].render(true)} #{@cell_group["A2"].render(true)} #{@cell_group["A3"].render(true)} #{@cell_group["A4"].render(true)} \n" +
+    "B #{@cell_group["B1"].render(true)} #{@cell_group["B2"].render(true)} #{@cell_group["B3"].render(true)} #{@cell_group["B4"].render(true)} \n" +
+    "C #{@cell_group["C1"].render(true)} #{@cell_group["C2"].render(true)} #{@cell_group["C3"].render(true)} #{@cell_group["C4"].render(true)} \n" +
+    "D #{@cell_group["D1"].render(true)} #{@cell_group["D2"].render(true)} #{@cell_group["D3"].render(true)} #{@cell_group["D4"].render(true)} \n"
     end
   end
 end
