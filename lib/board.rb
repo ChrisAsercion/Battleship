@@ -3,46 +3,61 @@ require './lib/cell'
 
 
 class Board
-def initialize
-  @game_board = self.cells
-  @valid_submarine = [['A1', 'A2'], ['A2', 'A3'], ['A3', 'A4'], ['B1', 'B2'], ['B2', 'B3'], ['B3', 'B4'], ['C1', 'C2'], ['C2', 'C3'], ['C3', 'C4'], ['D1', 'D2'], ['D2', 'D3'], ['D3', 'D4'], ['A1', 'B1'], ['A2', 'B2'], ['A3', 'B3'], ['A4', 'B4'], ['B1', 'C1'], ['B2', 'C2'], ['B3', 'C3'], ['B4', 'C4'], ['C1', 'D1'], ['C2', 'D2'], ['C3', 'D3'], ['C4', 'D4']]
-  @valid_cruiser = [['A1', 'A2', 'A3'], ['A2', 'A3', 'A4'], ['B1', 'B2', 'B3'], ['B2', 'B3', 'B4'], ['C1', 'C2', 'C3'], ['C2', 'C3', 'C4'], ['D1', 'D2', 'D3'], ['D2', 'D3', 'D4'], ['A1', 'B1', 'C1'], ['B1', 'C1', 'D1'], ['A2', 'B2', 'C2'], ['B2', 'C2', 'D2'], ['A3', 'B3', 'C3'], ['B3', 'C3', 'D3'], ['A4', 'B4', 'C4'], ['B4', 'C4', 'D4']]
-end
-
-def cells
-  range = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
-  require 'pry'; binding.pry
-  @player_board = {}
-  range.each do |element|
-    @player_board[element] = Cell.new(element)
+  def initialize
+    @game_board = self.cells
   end
-  @player_board
-end
 
-def valid_coordinate?(cell)
-  @game_board.has_key?(cell)
-end
+  def cells
+    range = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
 
-def valid_placement?(ship, cells)
-  if ship.length == cells.length && valid_coordinate?(cells) && consecutive_coordinates(ship, cells)
-    true
-  else
-    false
+    cell_group = {}
+    range.each do |element|
+      cell_group[element] = Cell.new(element)
+    end
+    cell_group
   end
-end
+  #changed VAR name to cell_group to not confuse with game_board
+  #removed @ to keep VAR contained to cells method
 
 
-end
+  # checks if cell is outside range of @game_board
+  def valid_coordinate?(cell)
+    @game_board.has_key?(cell)
+  end
 
-range = ["A1", "A2", "A3"]
-arr = []
-output = range.each do |item|
-  item.split << item
-  
-end
-p output
+  def valid_placement?(ship, cells)
+    length = ship.length == cells.length ? true : false
+    consecutive = consecutive_coordinates(ship, cells)
+    length && consecutive
+  end
 
-def consecutive_coordinates(ship, coordinates)
-  @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
+  # Seperate cells array into row & col arrays
+  def consecutive_coordinates(ship, cells)
+    column = []
+    row = []
+    cells.each do |cell|
+      row.push((cell[0]).ord)
+      column.push((cell[1]).to_i)
+    end
+    
+    # test if row & col arrays contain all same elements
+    row_same = row.each_cons(2).all? { |a, b| a == b}
+    col_same = column.each_cons(2).all? { |a, b| a == b}
+
+    # test if row & col arrays contain sequential elements
+    row_seq = row.sort.each_cons(2).all? { |x, y| y == x + 1 }
+    col_seq = column.sort.each_cons(2).all? { |x, y| y == x + 1 }
+    
+    # check if row is same then col needs to count up OR
+    # if col is same then row needs to count up NOT both
+    if (row_same && col_seq) || (col_same && row_seq)
+      true
+    else
+      false
+    end
+
+  end
+
+
 end
 
