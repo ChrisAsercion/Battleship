@@ -32,7 +32,8 @@ attr_reader :cell_group
   def valid_placement?(ship, cells)
     length = ship.length == cells.length ? true : false
     consecutive = consecutive_coordinates(ship, cells)
-    length && consecutive
+    overlap = is_overlapping?(ship)
+    length && consecutive && overlap 
   end
 
   # Seperate cells array into row & col arrays
@@ -64,6 +65,12 @@ attr_reader :cell_group
     cells.each do |cell|
       old_cell = @cell_group[cell]
       old_cell.place_ship(ship) 
+    end
+  end
+
+  def is_overlapping?(ship)
+    ship.all? do |boat|
+      boat.empty?
     end
   end
 end
