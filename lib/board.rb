@@ -24,7 +24,7 @@ def valid_coordinate?(cell)
 end
 
 def valid_placement?(ship, cells)
-  if ship.length == cells.length && valid_coordinate?(cells) &&
+  if ship.length == cells.length && valid_coordinate?(cells) && consecutive_coordinates(ship, cells)
     true
   else
     false
