@@ -46,3 +46,8 @@ def consecutive_coordinates(ship, coordinates)
   @valid_cruiser.include?(coordinates) || @valid_submarine.include?(coordinates)
 end
 
+def is_overlapping?(ship)
+  ship.all? do |boat|
+    boat.empty?
+  end
+end
