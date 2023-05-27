@@ -61,6 +61,7 @@ attr_reader :cell_group
       false
     end
   end
+
   def place(ship, cells)
     if is_overlapping?(cells)
       cells.each do |cell|
@@ -77,6 +78,14 @@ attr_reader :cell_group
     cells.all? do |cell|
       @cell_group[cell].empty?
     end
+  end
+
+  def render
+    "  1 2 3 4 \n" +
+    "A #{@cell_group["A1"].render} #{@cell_group["A2"].render} #{@cell_group["A3"].render} #{@cell_group["A4"].render} \n" +
+    "B #{@cell_group["B1"].render} #{@cell_group["B2"].render} #{@cell_group["B3"].render} #{@cell_group["B4"].render} \n" +
+    "C #{@cell_group["C1"].render} #{@cell_group["C2"].render} #{@cell_group["C3"].render} #{@cell_group["C4"].render} \n" +
+    "D #{@cell_group["D1"].render} #{@cell_group["D2"].render} #{@cell_group["D3"].render} #{@cell_group["D4"].render} \n"
   end
 end
 
