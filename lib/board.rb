@@ -2,7 +2,11 @@ require './lib/ship'
 require './lib/cell'
 
 
+
 class Board
+
+attr_reader :cell_group
+
   def initialize
     @game_board = self.cells
   end
@@ -10,11 +14,11 @@ class Board
   def cells
     range = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
 
-    cell_group = {}
+    @cell_group = {}
     range.each do |element|
-      cell_group[element] = Cell.new(element)
+      @cell_group[element] = Cell.new(element)
     end
-    cell_group
+    @cell_group
   end
   #changed VAR name to cell_group to not confuse with game_board
   #removed @ to keep VAR contained to cells method
@@ -55,9 +59,12 @@ class Board
     else
       false
     end
-
   end
-
-
+  def place(ship, cells)
+    cells.each do |cell|
+      old_cell = @cell_group[cell]
+      old_cell.place_ship(ship) 
+    end
+  end
 end
 
