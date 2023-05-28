@@ -32,6 +32,7 @@ attr_reader :cell_group
   def valid_placement?(ship, cells)
     length = ship.length == cells.length ? true : false
     consecutive = consecutive_coordinates(ship, cells)
+    # commented out 2nd check for overlap, it was interfering with placement. The overlap in placement seems to be catching overlaps.
     #overlap = is_overlapping?(cells)
     length && consecutive #&& overlap 
   end
