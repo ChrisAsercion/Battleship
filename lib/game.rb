@@ -3,7 +3,7 @@ require './lib/cell'
 require './lib/board'
 
 
-def game
+
   
   def computer_start
     # Player and bot have their own boards
@@ -41,10 +41,21 @@ def game
     else
       puts "Invalid Placement, please try again"
     end
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    submarine_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '').scan(/../)
+    valid_coordinate = submarine_location.all? { |cell| board.valid_coordinate?(cell) }
+    valid_placement = board.valid_placement?(submarine, submarine_location)
+
+    if valid_coordinate && valid_placement
+      board.place(submarine, submarine_location)
+    else
+      puts "Invalid Placement, please try again"
+    end
+
+
     
     puts board.render(true)
 end
 
 
-
-end
