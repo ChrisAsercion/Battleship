@@ -98,22 +98,48 @@ attr_reader :bot_board,
     shot_placed = false
     until shot_placed
       puts "Enter the coordinate for your shot:"
-      #require "pry" ; binding.pry
       shot_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '')
-        if @bot_board.valid_coordinate?(shot_location)
-          shot_placed = true
-          @bot_board.cell_group[shot_location].fire_upon
-          result = @bot_board.cell_group[shot_location].render
-          puts "Your shot on #{shot_location} was a #{result}."
-        else
-          puts "Invalid coordinates, please try again"
-        end
-      puts @bot_board.render
-      #if coord is valid then
-      # get firedupon cell and see if there is a ship there
-      # if ship then fire_upon
+      if @bot_board.valid_coordinate?(shot_location)
+        shot_placed = true
+        current_shot = @bot_board.cell_group[shot_location]
+        current_shot.fire_upon
+        result = current_shot.render == "M" ? "Miss" : "Hit!"
+        puts "Your shot on #{shot_location} was a #{result}."
+      else
+        puts "Invalid coordinates, please try again"
+      end
+
+      if current_shot.render == "H" && current_shot.ship.sunk?
+        puts "You sank my #{current_shot.ship.name}"
+      end
+      
+      if bot_cruiser.sunk? && bot_submarine.sunk?
+        name = current_shot.ship.name
+        puts "Your shot on #{shot_location} sank my #{name}"
+        puts "That was my last ship...  You Won!!!"
+      end
+
     end
+    puts @bot_board.render
+    dummy_bot_turn
+
   end
+
+  def shot_sank_ship?(location)
+
+  end
+
+
+  def dummy_bot_turn
+    player_shot
+  end
+
+
+
+
+
+
+
 
 
 end
