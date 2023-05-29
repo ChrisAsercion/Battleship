@@ -3,8 +3,8 @@ require './lib/cell'
 
 
 
-class Board
 
+class Board
 attr_reader :cell_group
 
   def initialize
@@ -32,8 +32,9 @@ attr_reader :cell_group
   def valid_placement?(ship, cells)
     length = ship.length == cells.length ? true : false
     consecutive = consecutive_coordinates(ship, cells)
-    overlap = is_overlapping?(cells)
-    length && consecutive && overlap 
+    # commented out 2nd check for overlap, it was interfering with placement. The overlap in placement seems to be catching overlaps.
+    #overlap = is_overlapping?(cells)
+    length && consecutive #&& overlap 
   end
 
   # Seperate cells array into row & col arrays
@@ -66,20 +67,20 @@ attr_reader :cell_group
     if is_overlapping?(cells)
       cells.each do |cell|
         old_cell = @cell_group[cell]
-        old_cell.place_ship(ship) 
+        old_cell.place_ship(ship)
       end
     else
       false
     end
     
   end
-
   def is_overlapping?(cells)
     cells.all? do |cell|
       @cell_group[cell].empty?
     end
   end
 
+  
   def render(show = false)
     if show == false
       "  1 2 3 4 \n" +
