@@ -108,26 +108,22 @@ attr_reader :bot_board,
       else
         puts "Invalid coordinates, please try again"
       end
-
-      if current_shot.render == "H" && current_shot.ship.sunk?
-        puts "You sank my #{current_shot.ship.name}"
-      end
-      
-      if bot_cruiser.sunk? && bot_submarine.sunk?
-        name = current_shot.ship.name
-        puts "Your shot on #{shot_location} sank my #{name}"
-        puts "That was my last ship...  You Won!!!"
-      end
-
     end
+
+    if (result == "Hit!") && current_shot.ship.sunk?
+      puts "You sank my #{current_shot.ship.name}"
+    end
+    
+    if bot_cruiser.sunk? && bot_submarine.sunk?
+      player_win = true
+      puts "That was my last ship...  You Won!!!"
+    end
+
     puts @bot_board.render
-    dummy_bot_turn
+    dummy_bot_turn unless player_win
 
   end
 
-  def shot_sank_ship?(location)
-
-  end
 
 
   def dummy_bot_turn
