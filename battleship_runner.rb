@@ -7,7 +7,8 @@ puts "Enter p to play. Enter q to quit."
 answer = gets.chomp.downcase
 
 if answer == "p"
-  computer_start
+  Game.new
+  game.computer_start
 else
   puts "Good bye"
 end

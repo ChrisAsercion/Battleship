@@ -3,7 +3,7 @@ require './lib/cell'
 require './lib/board'
 
 
-
+class Game
   
   def computer_start
     # Player and bot have their own boards
@@ -19,6 +19,18 @@ require './lib/board'
     player_start
   end
   
+  def computer_randomizer_sub(bot_board, bot_submarine)
+    bot_selection = []
+    until bot_board.valid_coordinate? #bot_board.valid_placement?(bot_submarine, bot_selection)# && bot_board.valid_coordinate?
+      require 'pry'; binding.pry
+      bot_selection.push(bot_board.cell_group.keys.sample)
+      bot_selection.push(bot_board.cell_group.keys.sample)
+      bot_selection.clear
+    end
+    require 'pry'; binding.pry
+    bot_board.place(bot_submarine, bot_selection)
+  end
+
   def player_start
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
@@ -56,6 +68,7 @@ require './lib/board'
 
     
     puts board.render(true)
+  end
 end
 
 

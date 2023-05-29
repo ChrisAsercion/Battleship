@@ -75,6 +75,7 @@ RSpec.describe Board do
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2) 
+      require 'pry'; binding.pry
       expect(board.place(submarine, ["A1", "B1"])).to eq(false)
     end
   end
@@ -96,5 +97,8 @@ RSpec.describe Board do
       example_board3 = "  1 2 3 4 \nA S . . . \nB S . . . \nC . . . . \nD . . . . \n"
       expect((board.render(true))).to eq(example_board3)
     end
+  end
+  it 'can randomize ' do
+    
   end
 end
