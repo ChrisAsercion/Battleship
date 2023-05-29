@@ -73,6 +73,7 @@ attr_reader :cell_group
     end
     
   end
+  
   def is_overlapping?(cells)
     cells.all? do |cell|
       @cell_group[cell].empty?
