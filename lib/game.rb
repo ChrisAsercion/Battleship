@@ -20,14 +20,12 @@ class Game
   end
   
   def computer_randomizer_sub(bot_board, bot_submarine)
-    bot_selection = []
-    until bot_board.valid_coordinate? #bot_board.valid_placement?(bot_submarine, bot_selection)# && bot_board.valid_coordinate?
-      require 'pry'; binding.pry
-      bot_selection.push(bot_board.cell_group.keys.sample)
-      bot_selection.push(bot_board.cell_group.keys.sample)
+    bot_selection = [] 
+    require 'pry'; binding.pry
+    until bot_board.valid_placement?(bot_submarine, bot_selection)  
+      bot_selection.push(bot_board.cell_group.keys.sample, bot_board.cell_group.keys.sample)
       bot_selection.clear
     end
-    require 'pry'; binding.pry
     bot_board.place(bot_submarine, bot_selection)
   end
 
