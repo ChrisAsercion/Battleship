@@ -128,18 +128,21 @@ attr_reader :bot_board,
     end
 
     puts @bot_board.render
-    dummy_bot_turn unless player_win
+    computer_shot unless player_win
   end
+
+
+  def computer_shot
+    possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+    shot = possible_shots.sample
+    @board.cell_group[shot].fire_upon
+    possible_shots.delete(shot)
+    show_boards
+    player_shot
+  end
+  
 end
 
-def computer_shot
-  possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
-  shot = possible_shots.sample
-  @board.cell_group[shot].fire_upon
-  possible_shots.delete(shot)
-  show_boards
-  player_shot
-end
 
 # Somehow we need to re-trigger the runner file to play again.
 # def play_again
