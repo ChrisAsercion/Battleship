@@ -31,7 +31,7 @@ class Cell
   end
 
   def render(show = false)
-    if show == true && !empty?
+    if show == true && !empty?# && @damaged
       "S"
     elsif @fired_upon == false
       "."

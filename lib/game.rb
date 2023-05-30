@@ -88,7 +88,9 @@ attr_reader :bot_board,
   end
   
   def show_boards
-    puts "=============COMPUTER BOARD============="
+    puts "
+    
+    =============COMPUTER BOARD============="
     puts @bot_board.render
     puts "==============PLAYER BOARD=============="
     puts @board.render(true)
@@ -104,17 +106,52 @@ attr_reader :bot_board,
           shot_placed = true
           @bot_board.cell_group[shot_location].fire_upon
           result = @bot_board.cell_group[shot_location].render
-          puts "Your shot on #{shot_location} was a #{result}."
+            if result == "H"
+              result = "hit"
+            elsif result == "M"
+              result = "miss"
+            else result == "X"
+              result = "final blow, you sunk an enemy vessel"
+            end
         else
           puts "Invalid coordinates, please try again"
         end
-      puts @bot_board.render
+      puts "Your shot on #{shot_location} was a #{result}."
+      # puts @bot_board.render
       #if coord is valid then
       # get firedupon cell and see if there is a ship there
       # if ship then fire_upon
+      #show_boards
+      computer_shot
     end
   end
 
+  def computer_shot
+    possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+    shot = possible_shots.sample
+    @board.cell_group[shot].fire_upon
+    possible_shots.delete(shot)
+    show_boards
+    player_shot
+  end
+  
+  #@board.cell_group[].fired_upon? == false
+    
+  #   if @board.cell_group[range.sample].fired_upon? == false
+  #     @board.cell_group[range.sample].fire_upon
+  #   else
+  # end  
 
+  def shoot
+    possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+    shot_index = rand(0..(possible_shots.length - 1))
+    shot = possible_shots[shot_index]
+    @board.cell_group[shot].fire_upon
+    possible_shots.delete_at(shot_index)
+    return shot
+    show_boards
+    player_shot
+  end
+  
 end
 
