@@ -46,8 +46,6 @@ attr_reader :bot_board,
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts @board.render
   
-  
-    
     cruiser_placed = false
     until cruiser_placed
     puts "Enter the squares for the Cruiser (3 spaces):"
@@ -131,22 +129,16 @@ attr_reader :bot_board,
 
     puts @bot_board.render
     dummy_bot_turn unless player_win
-
   end
-
-
 
   def dummy_bot_turn
     player_shot
   end
 
-
-
-
-
-
-
-
-
+  
 end
 
+# Somehow we need to re-trigger the runner file to play again.
+# def play_again
+#   `ruby battleship_runner.rb`
+# end
