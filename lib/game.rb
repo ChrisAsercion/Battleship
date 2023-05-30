@@ -11,7 +11,8 @@ attr_reader :bot_board,
             :bot_submarine,
             :board,
             :cruiser,
-            :submarine
+            :submarine,
+            :possible_shots
 
   def initialize
     @bot_board = Board.new
@@ -20,6 +21,7 @@ attr_reader :bot_board,
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
 
   end
 
@@ -128,17 +130,45 @@ attr_reader :bot_board,
     end
 
     puts @bot_board.render
-    computer_shot unless player_win
+    bot_shot unless player_win
+  end
+
+  def bot_shot
+      shot_location = computer_shot
+      current_shot = @board.cell_group[shot_location]
+      shot_placed = true
+      current_shot.fire_upon
+      result = current_shot.render == "M" ? "Miss" : "Hit!"
+      puts "My shot on #{shot_location} was a #{result}."
+        # Placed repeat shot detection inside Unless loop
+        # to prevent repeat shots to cell because repeat
+        # shots to the same cell all register as hits if Ship present.
+      
+    end
+
+    if (result == "Hit!") && current_shot.ship.sunk?
+      puts "I sank your #{current_shot.ship.name}"
+    end
+    
+    # Both ships sunk will trigger end of game
+    if cruiser.sunk? && submarine.sunk?
+      bot_win = true
+      puts "That was your last ship...  All your base are belong to us!!!"
+    end
+
+    puts @board.render
+    plyer_shot unless bot_win
   end
 
 
+
+
   def computer_shot
-    possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
-    shot = possible_shots.sample
-    @board.cell_group[shot].fire_upon
-    possible_shots.delete(shot)
-    show_boards
-    player_shot
+    @possible_shots
+    @shot = @possible_shots.sample
+    #@board.cell_group[@shot].fire_upon
+    @possible_shots.delete(@shot)
+    @shot
   end
   
 end
