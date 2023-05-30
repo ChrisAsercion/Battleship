@@ -46,8 +46,6 @@ attr_reader :bot_board,
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts @board.render
   
-  
-    
     cruiser_placed = false
     until cruiser_placed
     puts "Enter the squares for the Cruiser (3 spaces):"
@@ -98,23 +96,49 @@ attr_reader :bot_board,
     shot_placed = false
     until shot_placed
       puts "Enter the coordinate for your shot:"
-      #require "pry" ; binding.pry
       shot_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '')
-        if @bot_board.valid_coordinate?(shot_location)
-          shot_placed = true
-          @bot_board.cell_group[shot_location].fire_upon
-          result = @bot_board.cell_group[shot_location].render
-          puts "Your shot on #{shot_location} was a #{result}."
-        else
-          puts "Invalid coordinates, please try again"
-        end
-      puts @bot_board.render
-      #if coord is valid then
-      # get firedupon cell and see if there is a ship there
-      # if ship then fire_upon
+      current_shot = @bot_board.cell_group[shot_location]
+      
+      if @bot_board.valid_coordinate?(shot_location) &&
+        !current_shot.fired_upon
+        shot_placed = true
+        current_shot.fire_upon
+        result = current_shot.render == "M" ? "Miss" : "Hit!"
+        puts "Your shot on #{shot_location} was a #{result}."
+        # Placed repeat shot detection inside Unless loop
+        # to prevent repeat shots to cell because repeat
+        # shots to the same cell all register as hits if Ship present.
+      elsif @bot_board.valid_coordinate?(shot_location) &&
+        current_shot.fired_upon
+        puts "Please don't waste ammo!"
+        puts "you already fired at this location - #{shot_location}"
+      else
+        puts "Invalid coordinates, please try again"
+      end
     end
+
+    if (result == "Hit!") && current_shot.ship.sunk?
+      puts "You sank my #{current_shot.ship.name}"
+    end
+    
+    # Both ships sunk will trigger end of game
+    if bot_cruiser.sunk? && bot_submarine.sunk?
+      player_win = true
+      puts "That was my last ship...  You Won!!!"
+    end
+
+    puts @bot_board.render
+    dummy_bot_turn unless player_win
   end
 
+  def dummy_bot_turn
+    player_shot
+  end
 
+  
 end
 
+# Somehow we need to re-trigger the runner file to play again.
+# def play_again
+#   `ruby battleship_runner.rb`
+# end
