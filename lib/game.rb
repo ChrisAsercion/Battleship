@@ -127,9 +127,8 @@ attr_reader :bot_board,
     if bot_cruiser.sunk? && bot_submarine.sunk?
       player_win = true
       puts "That was my last ship...  You Won!!!"
+      play_again
     end
-
-    puts @bot_board.render
     bot_shot unless player_win
   end
 
@@ -143,8 +142,6 @@ attr_reader :bot_board,
         # Placed repeat shot detection inside Unless loop
         # to prevent repeat shots to cell because repeat
         # shots to the same cell all register as hits if Ship present.
-      
-    end
 
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "I sank your #{current_shot.ship.name}"
@@ -154,27 +151,33 @@ attr_reader :bot_board,
     if cruiser.sunk? && submarine.sunk?
       bot_win = true
       puts "That was your last ship...  All your base are belong to us!!!"
+      play_again
     end
 
-    puts @board.render
-    plyer_shot unless bot_win
+    show_boards
+    player_shot unless bot_win
   end
-
-
-
 
   def computer_shot
     @possible_shots
     @shot = @possible_shots.sample
-    #@board.cell_group[@shot].fire_upon
     @possible_shots.delete(@shot)
     @shot
   end
   
+  def play_again
+    puts "Do you want to play again?"
+    puts "Enter p to play. \nEnter q to quit."
+    answer = gets.chomp.downcase
+
+    if answer == "p"
+      initialize
+      computer_start
+    else
+      puts "Good bye"
+    end
+  end
+
 end
 
 
-# Somehow we need to re-trigger the runner file to play again.
-# def play_again
-#   `ruby battleship_runner.rb`
-# end

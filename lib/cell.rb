@@ -31,16 +31,16 @@ class Cell
   end
 
   def render(show = false)
-    if show == true && !empty?
+    if  @fired_upon == true && empty?
+      "M"
+    elsif @fired_upon == true && !empty?
+      "H"
+    elsif show == true && !empty? && @fired_upon == false
       "S"
     elsif @fired_upon == false
       "."
-    elsif @fired_upon == true && empty?
-      "M"
-    elsif @ship.sunk? == true
+    else @ship.sunk? == true
       "X"
-    else @fired_upon == true && !empty?
-      "H"
     end
   end
 end
