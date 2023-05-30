@@ -99,12 +99,18 @@ attr_reader :bot_board,
     until shot_placed
       puts "Enter the coordinate for your shot:"
       shot_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '')
-      if @bot_board.valid_coordinate?(shot_location)
+      current_shot = @bot_board.cell_group[shot_location]
+      
+      if @bot_board.valid_coordinate?(shot_location) &&
+        !current_shot.fired_upon
         shot_placed = true
-        current_shot = @bot_board.cell_group[shot_location]
         current_shot.fire_upon
         result = current_shot.render == "M" ? "Miss" : "Hit!"
         puts "Your shot on #{shot_location} was a #{result}."
+      elsif @bot_board.valid_coordinate?(shot_location) &&
+        current_shot.fired_upon
+        puts "Please don't waste ammo!"
+        puts "you already fired at this location - #{shot_location}"
       else
         puts "Invalid coordinates, please try again"
       end
