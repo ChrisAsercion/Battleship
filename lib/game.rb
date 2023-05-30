@@ -107,6 +107,9 @@ attr_reader :bot_board,
         current_shot.fire_upon
         result = current_shot.render == "M" ? "Miss" : "Hit!"
         puts "Your shot on #{shot_location} was a #{result}."
+        # Placed repeat shot detection inside Unless loop
+        # to prevent repeat shots to cell because repeat
+        # shots to the same cell all register as hits if Ship present.
       elsif @bot_board.valid_coordinate?(shot_location) &&
         current_shot.fired_upon
         puts "Please don't waste ammo!"
@@ -120,6 +123,7 @@ attr_reader :bot_board,
       puts "You sank my #{current_shot.ship.name}"
     end
     
+    # Both ships sunk will trigger end of game
     if bot_cruiser.sunk? && bot_submarine.sunk?
       player_win = true
       puts "That was my last ship...  You Won!!!"
