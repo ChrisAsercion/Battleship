@@ -26,15 +26,19 @@ attr_reader :bot_board,
   end
 
   def computer_start
-    # Player and bot have their own boards
-    @bot_board = Board.new
-    @bot_cruiser = Ship.new("Cruiser", 3)
-    @bot_submarine = Ship.new("Submarine", 2)
-  
-    # Making ship placement static for now until we get it working
-    @bot_board.place(@bot_submarine, ["C2", "D2"])
-    @bot_board.place(@bot_cruiser, ["A1", "A2", "A3"])
-    
+    ships = [@bot_cruiser, @bot_submarine]
+    ships.each do |ship|
+      loop do 
+      coords = []
+        ship.length.times do 
+          coords << @bot_board.cell_group.keys.sample
+        end
+      if @bot_board.valid_placement?(ship, coords) 
+        bot_board.place(ship, coords)
+        break
+      end
+      end
+    end
     puts "I have laid out my ships on the grid."
     player_start
   end
