@@ -2,9 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 
-
-
-
 class Game
 attr_reader :bot_board,
             :bot_cruiser,
@@ -22,7 +19,11 @@ attr_reader :bot_board,
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @possible_shots = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+  end
 
+  def game_start
+    computer_start
+    player_start
   end
 
   def computer_start
@@ -36,7 +37,6 @@ attr_reader :bot_board,
     @bot_board.place(@bot_cruiser, ["A1", "A2", "A3"])
     
     puts "I have laid out my ships on the grid."
-    player_start
   end
 
   def player_start
@@ -50,11 +50,11 @@ attr_reader :bot_board,
   
     cruiser_placed = false
     until cruiser_placed
-    puts "Enter the squares for the Cruiser (3 spaces):"
-    # All non-alphanumeric removed then char pairs put into array
-    cruiser_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '').scan(/../)
-    valid_coordinate = cruiser_location.all? { |cell| @board.valid_coordinate?(cell) }
-    valid_placement = @board.valid_placement?(@cruiser, cruiser_location)
+      puts "Enter the squares for the Cruiser (3 spaces):"
+      # All non-alphanumeric removed then char pairs put into array
+      cruiser_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '').scan(/../)
+      valid_coordinate = cruiser_location.all? { |cell| @board.valid_coordinate?(cell) }
+      valid_placement = @board.valid_placement?(@cruiser, cruiser_location)
   
       if valid_coordinate && valid_placement
         @board.place(@cruiser, cruiser_location)
@@ -123,6 +123,7 @@ attr_reader :bot_board,
       puts "You sank my #{current_shot.ship.name}"
     end
     
+    #* --------------  possible Check-for-win module ---------------------------
     # Both ships sunk will trigger end of game
     if bot_cruiser.sunk? && bot_submarine.sunk?
       player_win = true
@@ -135,18 +136,15 @@ attr_reader :bot_board,
   def bot_shot
       shot_location = computer_shot
       current_shot = @board.cell_group[shot_location]
-      shot_placed = true
       current_shot.fire_upon
       result = current_shot.render == "M" ? "Miss" : "Hit!"
       puts "My shot on #{shot_location} was a #{result}."
-        # Placed repeat shot detection inside Unless loop
-        # to prevent repeat shots to cell because repeat
-        # shots to the same cell all register as hits if Ship present.
 
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "I sank your #{current_shot.ship.name}"
     end
     
+    #* --------------  possible Check-for-win module ---------------------------
     # Both ships sunk will trigger end of game
     if cruiser.sunk? && submarine.sunk?
       bot_win = true
