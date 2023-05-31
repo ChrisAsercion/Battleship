@@ -33,9 +33,20 @@ class Game
     bot_board.place(bot_cruiser, bot_selection)
   end
 
-  def computer_overlapping?()
-
-  end
+  def computer_placement(bot_board, bot_submarine, bot_cruiser)
+    
+    #look for the array without overlap 
+    bot_board.cell_group.values.each do |cell| 
+      require 'pry'; binding.pry
+      cell.ship = 0
+      require 'pry'; binding.pry
+      until  cell.include?("Submarine") #&& bot_board.cell_group[cell].ship.name.include?("Cruiser")
+      #where both ships are not overlap iterate
+      computer_randomizer_cruiser(bot_board, bot_cruiser)
+      computer_randomizer_sub(bot_board, bot_submarine)
+      end
+    end
+  end 
 
   def player_start
     board = Board.new

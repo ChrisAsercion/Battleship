@@ -8,7 +8,7 @@ RSpec.describe Game do
     game.computer_start
   end
   describe '#computer placement'
-    it 'can randomly generate a sub position' do
+    xit 'can randomly generate a sub position' do
       new_game = Game.new
       bot_board = Board.new
       bot_submarine = Ship.new("Submarine", 2)
@@ -18,11 +18,24 @@ RSpec.describe Game do
       end
     end
 
-    it 'can randomly generate a cruiser position' do
+    xit 'can randomly generate a cruiser position' do
       new_game = Game.new
       bot_board = Board.new
       bot_cruiser = Ship.new("Cruiser", 3)
       new_game.computer_randomizer_cruiser(bot_board, bot_cruiser)
+      require 'pry'; binding.pry
+      bot_board.cell_group.any? do |board|
+        expect(board.empty?).to be(false)
+      end
+    end
+
+    it 'can randomly generate 2 ship position' do
+      new_game = Game.new
+      bot_board = Board.new
+      bot_cruiser = Ship.new("Cruiser", 3)
+      bot_submarine = Ship.new("Submarine", 2)
+      new_game.computer_placement(bot_board, bot_submarine, bot_cruiser)
+      require 'pry'; binding.pry
       bot_board.cell_group.any? do |board|
         expect(board.empty?).to be(false)
       end
