@@ -19,30 +19,45 @@ class Game
     player_start
   end
 
-
-  
-  def computer_randomizer_sub(bot_board, bot_submarine)
-    valid_submarine = [['A1', 'A2'], ['A2', 'A3'], ['A3', 'A4'], ['B1', 'B2'], ['B2', 'B3'], ['B3', 'B4'], ['C1', 'C2'], ['C2', 'C3'], ['C3', 'C4'], ['D1', 'D2'], ['D2', 'D3'], ['D3', 'D4'], ['A1', 'B1'], ['A2', 'B2'], ['A3', 'B3'], ['A4', 'B4'], ['B1', 'C1'], ['B2', 'C2'], ['B3', 'C3'], ['B4', 'C4'], ['C1', 'D1'], ['C2', 'D2'], ['C3', 'D3'], ['C4', 'D4']]
-    bot_selection = valid_submarine.sample
-    bot_board.place(bot_submarine, bot_selection)
-  end
-
   def computer_randomizer_cruiser(bot_board, bot_cruiser)
     valid_cruiser = [['A1', 'A2', 'A3'], ['A2', 'A3', 'A4'], ['B1', 'B2', 'B3'], ['B2', 'B3', 'B4'], ['C1', 'C2', 'C3'], ['C2', 'C3', 'C4'], ['D1', 'D2', 'D3'], ['D2', 'D3', 'D4'], ['A1', 'B1', 'C1'], ['B1', 'C1', 'D1'], ['A2', 'B2', 'C2'], ['B2', 'C2', 'D2'], ['A3', 'B3', 'C3'], ['B3', 'C3', 'D3'], ['A4', 'B4', 'C4'], ['B4', 'C4', 'D4']]
-    bot_selection = valid_cruiser.sample
-    bot_board.place(bot_cruiser, bot_selection)
+    @cruiser_selection = valid_cruiser.sample
+    bot_board.place(bot_cruiser, @cruiser_selection)
+  end
+
+  def computer_randomizer_sub(bot_board, bot_submarine)
+    valid_submarine = [['A1', 'A2'], ['A2', 'A3'], ['A3', 'A4'], ['B1', 'B2'], ['B2', 'B3'], ['B3', 'B4'], ['C1', 'C2'], ['C2', 'C3'], ['C3', 'C4'], ['D1', 'D2'], ['D2', 'D3'], ['D3', 'D4'], ['A1', 'B1'], ['A2', 'B2'], ['A3', 'B3'], ['A4', 'B4'], ['B1', 'C1'], ['B2', 'C2'], ['B3', 'C3'], ['B4', 'C4'], ['C1', 'D1'], ['C2', 'D2'], ['C3', 'D3'], ['C4', 'D4']]
+    acceptable_array =[]
+    @cruiser_selection.each do |coord|
+      results = valid_submarine.keep_if {|element| element == "A1" || "A2"}
+      require 'pry'; binding.pry
+      acceptable_array << results
+    end
+
+    require 'pry'; binding.pry
+    acceptable_array
+    # valid_submarine.filter
+    #   != @cruiser_selection.each do |coord|
+    #     coord.
+    #   end
+        
+    
+    @cruiser_selection
+    bot_selection = valid_submarine.sample
+    bot_board.place(bot_submarine, bot_selection)
   end
 
   def computer_placement(bot_board, bot_submarine, bot_cruiser)
     
     #look for the array without overlap 
     bot_board.cell_group.values.each do |cell| 
-      require 'pry'; binding.pry
-      cell.ship = 0
-      require 'pry'; binding.pry
-      until  cell.include?("Submarine") #&& bot_board.cell_group[cell].ship.name.include?("Cruiser")
-      #where both ships are not overlap iterate
+      #require 'pry'; binding.pry
+      #cell.ship = 0
+      #require 'pry'; binding.pry
       computer_randomizer_cruiser(bot_board, bot_cruiser)
+      until  cell.ship.name != nil &&  cell.ship.name.find("Submarine") #&& bot_board.cell_group[cell].ship.name.include?("Cruiser")
+      #where both ships are not overlap iterate
+      #computer_randomizer_cruiser(bot_board, bot_cruiser)
       computer_randomizer_sub(bot_board, bot_submarine)
       end
     end
