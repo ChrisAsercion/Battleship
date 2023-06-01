@@ -133,9 +133,6 @@ attr_reader :bot_board,
       current_shot.fire_upon
       result = current_shot.render == "M" ? "Miss." : "Hit!"
       puts "My shot on #{shot_location} was a #{result}"
-        # Placed repeat shot detection inside Unless loop
-        # to prevent repeat shots to cell because repeat
-        # shots to the same cell all register as hits if Ship present.
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "I sank your #{current_shot.ship.name}"
     end
