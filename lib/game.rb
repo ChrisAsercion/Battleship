@@ -138,18 +138,15 @@ attr_reader :bot_board,
         # Placed repeat shot detection inside Unless loop
         # to prevent repeat shots to cell because repeat
         # shots to the same cell all register as hits if Ship present.
-
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "I sank your #{current_shot.ship.name}"
     end
-    
     # Both ships sunk will trigger end of game
     if cruiser.sunk? && submarine.sunk?
       bot_win = true
       puts "That was your last ship...  All your base are belong to us!!!"
       play_again
     end
-
     show_boards
     player_shot unless bot_win
   end
@@ -165,7 +162,6 @@ attr_reader :bot_board,
     puts "Do you want to play again?"
     puts "Enter p to play. \nEnter q to quit."
     answer = gets.chomp.downcase
-
     if answer == "p"
       initialize
       computer_start
@@ -173,7 +169,6 @@ attr_reader :bot_board,
       puts "Good bye"
     end
   end
-
 end
 
 
