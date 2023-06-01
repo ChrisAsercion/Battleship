@@ -28,6 +28,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
     end
   end
+  
   describe 'placement' do
     it 'checks if coordinates are consecutive' do
       board = Board.new
