@@ -96,7 +96,6 @@ attr_reader :bot_board,
       puts "Enter the coordinate for your shot:"
       shot_location = gets.chomp.upcase.gsub(/[^0-9a-z]/i, '')
       current_shot = @bot_board.cell_group[shot_location]
-      
       if @bot_board.valid_coordinate?(shot_location) &&
         !current_shot.fired_upon
         shot_placed = true
@@ -114,7 +113,7 @@ attr_reader :bot_board,
         puts "Invalid coordinates, please try again"
       end
     end
-    
+
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "You sank my #{current_shot.ship.name}"
     end

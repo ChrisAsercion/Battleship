@@ -22,6 +22,7 @@ attr_reader :cell_group
   #changed VAR name to cell_group to not confuse with game_board
   #removed @ to keep VAR contained to cells method
   # checks if cell is outside range of @game_board
+  
   def valid_coordinate?(cell)
     @game_board.has_key?(cell)
   end
@@ -29,9 +30,7 @@ attr_reader :cell_group
   def valid_placement?(ship, cells)
     length = ship.length == cells.length ? true : false
     consecutive = consecutive_coordinates(ship, cells)
-    # commented out 2nd check for overlap, it was interfering with placement. The overlap in placement seems to be catching overlaps.
-    #overlap = is_overlapping?(cells)
-    length && consecutive #&& overlap 
+    length && consecutive
   end
 
   # Seperate cells array into row & col arrays
