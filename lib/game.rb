@@ -2,9 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 
-
-
-
 class Game
 attr_reader :bot_board,
             :bot_cruiser,
