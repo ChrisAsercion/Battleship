@@ -131,8 +131,8 @@ attr_reader :bot_board,
       shot_location = computer_shot
       current_shot = @board.cell_group[shot_location]
       current_shot.fire_upon
-      result = current_shot.render == "M" ? "Miss" : "Hit!"
-      puts "My shot on #{shot_location} was a #{result}."
+      result = current_shot.render == "M" ? "Miss." : "Hit!"
+      puts "My shot on #{shot_location} was a #{result}"
         # Placed repeat shot detection inside Unless loop
         # to prevent repeat shots to cell because repeat
         # shots to the same cell all register as hits if Ship present.
