@@ -114,7 +114,7 @@ attr_reader :bot_board,
         puts "Invalid coordinates, please try again"
       end
     end
-
+    
     if (result == "Hit!") && current_shot.ship.sunk?
       puts "You sank my #{current_shot.ship.name}"
     end
@@ -131,7 +131,6 @@ attr_reader :bot_board,
   def bot_shot
       shot_location = computer_shot
       current_shot = @board.cell_group[shot_location]
-      shot_placed = true
       current_shot.fire_upon
       result = current_shot.render == "M" ? "Miss" : "Hit!"
       puts "My shot on #{shot_location} was a #{result}."
