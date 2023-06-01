@@ -115,7 +115,7 @@ attr_reader :bot_board,
     end
 
     if (result == "Hit!") && current_shot.ship.sunk?
-      puts "You sank my #{current_shot.ship.name}"
+      puts "You sank my #{current_shot.ship.name}!"
     end
     
     # Both ships sunk will trigger end of game
