@@ -37,7 +37,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
       expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
       expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(true)#we thought this should be true because the input of the user shouldn't matter if they are still consecutive.
-      expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+      expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(true)#same concept as above
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
     end
@@ -62,10 +62,6 @@ RSpec.describe Board do
       expect(cell_3.empty?).to eq(false)
       expect(cell_1.ship).to eq(cell_2.ship)
       expect(cell_2.ship).to eq(cell_3.ship)
-      # submarine = Ship.new("Submarine", 2)
-      # cell_4 = board.cell_group["A4"]
-      # board.place(submarine, ["B1", "B2"]) 
-      # expect(cell_4.ship).assert_not_equal(cell_1.ship)
     end
 
     it 'can check if they are overlapping' do
