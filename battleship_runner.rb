@@ -19,7 +19,7 @@ answer = gets.chomp.downcase
 
 if answer == "p"
 game = Game.new
-game.computer_start
+game.game_start
 elsif answer == "q"
   puts "Good bye...for now"
 else
