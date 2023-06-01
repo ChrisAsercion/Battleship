@@ -13,15 +13,17 @@ puts "              |    |    |
   ^^^^^ ^^^^^^^^^^^^^^^^^^^^^
     ^^^^      ^^^^     ^^^    ^^
          ^^^^      ^^^"
-puts "Enter p to play. \nEnter q to quit."
-answer = gets.chomp.downcase
-
-
-if answer == "p"
-game = Game.new
-game.computer_start
-elsif answer == "q"
-  puts "Good bye...for now"
-elsif 
-  puts "That's not an answer"
+loop do
+  puts "Enter p to play. \nEnter q to quit."
+  answer = gets.chomp.downcase
+  if answer == "p"
+    game = Game.new
+    game.computer_start
+    break
+  elsif answer == "q"
+    puts "Good bye...for now"
+    break
+  elsif 
+    puts "That's not an answer"
+  end
 end
