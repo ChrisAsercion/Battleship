@@ -3,7 +3,6 @@ class Cell
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @damaged = false
     @ship = nil
     @fired_upon = false
   end
@@ -26,7 +25,6 @@ class Cell
 
   def fire_upon
     @ship.hit unless @ship == nil
-    @damaged = true
     @fired_upon = true
   end
 

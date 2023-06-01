@@ -13,7 +13,6 @@ attr_reader :cell_group
 
   def cells
     range = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
-
     @cell_group = {}
     range.each do |element|
       @cell_group[element] = Cell.new(element)
@@ -22,9 +21,8 @@ attr_reader :cell_group
   end
   #changed VAR name to cell_group to not confuse with game_board
   #removed @ to keep VAR contained to cells method
-
-
   # checks if cell is outside range of @game_board
+  
   def valid_coordinate?(cell)
     @game_board.has_key?(cell)
   end
@@ -32,9 +30,7 @@ attr_reader :cell_group
   def valid_placement?(ship, cells)
     length = ship.length == cells.length ? true : false
     consecutive = consecutive_coordinates(ship, cells)
-    # commented out 2nd check for overlap, it was interfering with placement. The overlap in placement seems to be catching overlaps.
-    #overlap = is_overlapping?(cells)
-    length && consecutive #&& overlap 
+    length && consecutive
   end
 
   # Seperate cells array into row & col arrays
@@ -74,13 +70,13 @@ attr_reader :cell_group
     end
     
   end
+
   def is_overlapping?(cells)
     cells.all? do |cell|
       @cell_group[cell].empty?
     end
   end
 
-  
   def render(show = false)
     if show == false
       "  1 2 3 4 \n" +
