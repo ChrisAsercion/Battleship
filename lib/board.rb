@@ -1,9 +1,6 @@
 require './lib/ship'
 require './lib/cell'
 
-
-
-
 class Board
 attr_reader :cell_group
 

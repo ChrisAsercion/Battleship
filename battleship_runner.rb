@@ -22,6 +22,6 @@ game = Game.new
 game.computer_start
 elsif answer == "q"
   puts "Good bye...for now"
-else
+elsif 
   puts "That's not an answer"
 end
