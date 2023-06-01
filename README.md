@@ -8,3 +8,11 @@ If I had one more day to work on this project, I would work on a method to expan
 Working with Paul we used several different work collaboration styles. It was often helpful to us to plan what we did on a Miro board to show the progress of the project and where it was going. We worked individually, as well as paired code collaboration to work together.
 
 Feedback was good, but I could personally use more direction in the more technical aspects of the project. The feedback was given more on the project overall.
+
+PB - Iteration 3 did give a set of expectations for program behavior. We used these behaviors as functionality targets. We then broke the path to those targets into discreet steps and began coding for each step.
+
+PB - I would like to make the board render method a procedural one. It would take in a range of cells and render the board from that range. That would allow ranges of different sizes to be used and would also pave the way for making it possible to play the game with different board sizes.
+
+PB - We agreed on a very general outline of what the project would entail. We then met for pair-coding sessions at the beginning to build the basic framework of the game together. After that, we alternated between coding specific features on our own and coming back together to pair-code. We would also pair-code specific problems or rough spots in the code.
+
+PB - We were always open to regular feedback. All of our feedback was constructive and helped in moving the project forward. We used a combination of Zoom, Slac, and comments on GitHub.
