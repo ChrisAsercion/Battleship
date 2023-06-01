@@ -72,6 +72,7 @@ RSpec.describe Board do
       expect(board.place(submarine, ["A1", "B1"])).to eq(false)
     end
   end
+
   describe 'render' do
     it 'can render the board' do
       board = Board.new
@@ -81,8 +82,8 @@ RSpec.describe Board do
       expect(board.render).to eq(example_board)
       board.place(cruiser, ["A1", "A2", "A3"])
       expect(board.render(true)).to eq(example_board2)
-      
     end
+    
     it 'can render vertically' do
       board = Board.new
       submarine = Ship.new("Submarine", 2) 
